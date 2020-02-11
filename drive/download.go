@@ -175,6 +175,7 @@ func (self *Drive) doDownloadRecursive(f *drive.File, args DownloadArgs) {
 
 func (self *Drive) downloadBinary(f *drive.File, args DownloadArgs) (int64, int64, error) {
 	// Get timeout reader wrapper and context
+	self.downlaodCount++
 	timeoutReaderWrapper, ctx := getTimeoutReaderWrapperContext(args.Timeout)
 	res, err := self.service.Files.Get(f.Id).SupportsAllDrives(true).Context(ctx).Download()
 	if err != nil {
@@ -276,6 +277,7 @@ func (self *Drive) saveFile(args saveFileArgs) (int64, int64, error) {
 }
 
 func (self *Drive) downloadDirectory(parent *drive.File, args DownloadArgs) error {
+	self.downlaodCount++
 	listArgs := listAllFilesArgs{
 		query:  fmt.Sprintf("'%s' in parents %s", parent.Id, args.RecursiveExtraQuery),
 		fields: []googleapi.Field{"nextPageToken", "files(id,name)"},
