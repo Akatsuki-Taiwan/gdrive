@@ -1,4 +1,4 @@
-module github.com/prasmussen/gdrive
+module github.com/Akatsuki-Taiwan/gdrive
 
 go 1.13
 
